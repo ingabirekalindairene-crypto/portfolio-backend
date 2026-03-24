@@ -1,0 +1,33 @@
+{% extends 'admin/base.html' %}
+{% block title %}Experience{% endblock %}
+{% block page_title %}Experience{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-end mb-3">
+    <a href="{{ url_for('admin_add_experience') }}" class="btn btn-primary">
+        <i class="fas fa-plus me-2"></i> Add Entry
+    </a>
+</div>
+<div class="table-card">
+    <table class="table table-hover mb-0">
+        <thead><tr><th>#</th><th>Title</th><th>Company</th><th>Period</th><th>Actions</th></tr></thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.order_num }}</td>
+                <td><strong>{{ item.title }}</strong></td>
+                <td>{{ item.company }}</td>
+                <td>{{ item.period }}</td>
+                <td>
+                    <a href="{{ url_for('admin_edit_experience', id=item.id) }}" class="btn btn-outline-primary btn-sm me-1"><i class="fas fa-edit"></i></a>
+                    <form method="POST" action="{{ url_for('admin_delete_experience', id=item.id) }}" style="display:inline" onsubmit="return confirm('Delete?')">
+                        <button type="submit" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i></button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5" class="text-center text-muted py-4">No entries yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

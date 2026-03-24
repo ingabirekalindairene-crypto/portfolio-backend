@@ -1,0 +1,41 @@
+{% extends 'admin/base.html' %}
+{% block title %}{{ action }} Experience{% endblock %}
+{% block page_title %}{{ action }} Experience Entry{% endblock %}
+{% block content %}
+<div class="form-card" style="max-width:600px">
+    <form method="POST">
+        <div class="mb-3">
+            <label class="form-label">Role / Title *</label>
+            <input type="text" class="form-control" name="title" required value="{{ item.title if item else '' }}">
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Company / Organisation</label>
+                <input type="text" class="form-control" name="company" value="{{ item.company if item else '' }}">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Period</label>
+                <input type="text" class="form-control" name="period" value="{{ item.period if item else '' }}" placeholder="e.g. 2026 – Present">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea class="form-control" name="description" rows="3">{{ item.description if item else '' }}</textarea>
+        </div>
+        <div class="row">
+            <div class="col-md-8 mb-3">
+                <label class="form-label">Icon Class</label>
+                <input type="text" class="form-control" name="icon_class" value="{{ item.icon_class if item else 'fas fa-briefcase' }}">
+            </div>
+            <div class="col-md-4 mb-4">
+                <label class="form-label">Order / Position</label>
+                <input type="number" class="form-control" name="order_num" value="{{ item.order_num if item else 0 }}">
+            </div>
+        </div>
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i> {{ action }} Entry</button>
+            <a href="{{ url_for('admin_experience') }}" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

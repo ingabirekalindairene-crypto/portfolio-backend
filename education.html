@@ -1,0 +1,33 @@
+{% extends 'admin/base.html' %}
+{% block title %}Education{% endblock %}
+{% block page_title %}Education & Certifications{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-end mb-3">
+    <a href="{{ url_for('admin_add_education') }}" class="btn btn-primary">
+        <i class="fas fa-plus me-2"></i> Add Entry
+    </a>
+</div>
+<div class="table-card">
+    <table class="table table-hover mb-0">
+        <thead><tr><th>#</th><th>Institution</th><th>Degree / Field</th><th>Period</th><th>Actions</th></tr></thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.order_num }}</td>
+                <td><strong>{{ item.institution }}</strong></td>
+                <td>{{ item.degree }}{% if item.field %} – {{ item.field }}{% endif %}</td>
+                <td>{{ item.start_year }}{% if item.end_year %} – {{ item.end_year }}{% endif %}</td>
+                <td>
+                    <a href="{{ url_for('admin_edit_education', id=item.id) }}" class="btn btn-outline-primary btn-sm me-1"><i class="fas fa-edit"></i></a>
+                    <form method="POST" action="{{ url_for('admin_delete_education', id=item.id) }}" style="display:inline" onsubmit="return confirm('Delete?')">
+                        <button type="submit" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i></button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5" class="text-center text-muted py-4">No entries yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

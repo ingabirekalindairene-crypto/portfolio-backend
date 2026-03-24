@@ -1,0 +1,66 @@
+{% extends 'admin/base.html' %}
+{% block title %}{{ action }} Project{% endblock %}
+{% block page_title %}{{ action }} Project{% endblock %}
+
+{% block content %}
+<div class="form-card" style="max-width:700px">
+    <form method="POST">
+        <div class="mb-3">
+            <label class="form-label">Project Title *</label>
+            <input type="text" class="form-control" name="title" required
+                   value="{{ project.title if project else '' }}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Description *</label>
+            <textarea class="form-control" name="description" rows="3" required>{{ project.description if project else '' }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Technologies (comma-separated)</label>
+            <input type="text" class="form-control" name="technologies"
+                   placeholder="e.g. HTML5, CSS3, JavaScript"
+                   value="{{ project.technologies if project else '' }}">
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Live URL</label>
+                <input type="url" class="form-control" name="live_url"
+                       placeholder="https://..."
+                       value="{{ project.live_url if project else '' }}">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">GitHub URL</label>
+                <input type="url" class="form-control" name="github_url"
+                       placeholder="https://github.com/..."
+                       value="{{ project.github_url if project else '' }}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 mb-3">
+                <label class="form-label">Image filename (e.g. project1.png)</label>
+                <input type="text" class="form-control" name="image_url"
+                       placeholder="project1.png"
+                       value="{{ project.image_url if project else '' }}">
+                <div class="form-text">Place the image in <code>static/images/</code> folder.</div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Order / Position</label>
+                <input type="number" class="form-control" name="order_num"
+                       value="{{ project.order_num if project else 0 }}">
+            </div>
+        </div>
+        <div class="mb-4">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" name="is_active" id="is_active"
+                       {% if not project or project.is_active %}checked{% endif %}>
+                <label class="form-check-label form-label" for="is_active">Show on portfolio</label>
+            </div>
+        </div>
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save me-2"></i> {{ action }} Project
+            </button>
+            <a href="{{ url_for('admin_projects') }}" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

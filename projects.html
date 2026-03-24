@@ -1,0 +1,60 @@
+{% extends 'admin/base.html' %}
+{% block title %}Projects{% endblock %}
+{% block page_title %}Projects{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-end mb-3">
+    <a href="{{ url_for('admin_add_project') }}" class="btn btn-primary">
+        <i class="fas fa-plus me-2"></i> Add Project
+    </a>
+</div>
+
+<div class="table-card">
+    <table class="table table-hover mb-0">
+        <thead>
+            <tr>
+                <th>#</th><th>Title</th><th>Technologies</th><th>Status</th><th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in projects %}
+            <tr>
+                <td>{{ p.order_num }}</td>
+                <td>
+                    <strong>{{ p.title }}</strong>
+                    <br><small class="text-muted">{{ p.description[:60] }}…</small>
+                </td>
+                <td>
+                    {% for tech in p.tech_list() %}
+                    <span class="badge bg-primary me-1">{{ tech }}</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% if p.is_active %}
+                    <span class="badge bg-success">Active</span>
+                    {% else %}
+                    <span class="badge bg-secondary">Hidden</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ url_for('admin_edit_project', id=p.id) }}"
+                       class="btn btn-outline-primary btn-sm me-1">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <form method="POST"
+                          action="{{ url_for('admin_delete_project', id=p.id) }}"
+                          style="display:inline"
+                          onsubmit="return confirm('Delete this project?')">
+                        <button type="submit" class="btn btn-outline-danger btn-sm">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5" class="text-center text-muted py-4">No projects yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

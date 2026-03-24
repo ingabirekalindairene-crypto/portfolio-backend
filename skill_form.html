@@ -1,0 +1,30 @@
+{% extends 'admin/base.html' %}
+{% block title %}{{ action }} Skill{% endblock %}
+{% block page_title %}{{ action }} Skill{% endblock %}
+{% block content %}
+<div class="form-card" style="max-width:550px">
+    <form method="POST">
+        <div class="mb-3">
+            <label class="form-label">Skill Name *</label>
+            <input type="text" class="form-control" name="name" required value="{{ skill.name if skill else '' }}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Short Description</label>
+            <input type="text" class="form-control" name="description" value="{{ skill.description if skill else '' }}" placeholder="e.g. Responsive design & animations">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Font Awesome Icon Class</label>
+            <input type="text" class="form-control" name="icon_class" value="{{ skill.icon_class if skill else '' }}" placeholder="e.g. fab fa-html5">
+            <div class="form-text">Find icons at <a href="https://fontawesome.com/icons" target="_blank">fontawesome.com/icons</a></div>
+        </div>
+        <div class="mb-4">
+            <label class="form-label">Order / Position</label>
+            <input type="number" class="form-control" name="order_num" value="{{ skill.order_num if skill else 0 }}">
+        </div>
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i> {{ action }} Skill</button>
+            <a href="{{ url_for('admin_skills') }}" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

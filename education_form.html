@@ -1,0 +1,49 @@
+{% extends 'admin/base.html' %}
+{% block title %}{{ action }} Education{% endblock %}
+{% block page_title %}{{ action }} Education Entry{% endblock %}
+{% block content %}
+<div class="form-card" style="max-width:600px">
+    <form method="POST">
+        <div class="mb-3">
+            <label class="form-label">Institution / Programme Name *</label>
+            <input type="text" class="form-control" name="institution" required value="{{ item.institution if item else '' }}">
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Degree / Qualification</label>
+                <input type="text" class="form-control" name="degree" value="{{ item.degree if item else '' }}" placeholder="e.g. Extended Diploma">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Field of Study</label>
+                <input type="text" class="form-control" name="field" value="{{ item.field if item else '' }}" placeholder="e.g. Information Technology">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Start Year</label>
+                <input type="text" class="form-control" name="start_year" value="{{ item.start_year if item else '' }}" placeholder="2024">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">End Year</label>
+                <input type="text" class="form-control" name="end_year" value="{{ item.end_year if item else '' }}" placeholder="Present">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Order / Position</label>
+                <input type="number" class="form-control" name="order_num" value="{{ item.order_num if item else 0 }}">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea class="form-control" name="description" rows="3">{{ item.description if item else '' }}</textarea>
+        </div>
+        <div class="mb-4">
+            <label class="form-label">Icon Class</label>
+            <input type="text" class="form-control" name="icon_class" value="{{ item.icon_class if item else 'fas fa-graduation-cap' }}">
+        </div>
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i> {{ action }} Entry</button>
+            <a href="{{ url_for('admin_education') }}" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
